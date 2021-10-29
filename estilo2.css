@@ -32,14 +32,15 @@
 
 .indicador-casa {
     text-transform: uppercase;
-    width: 1.8rem;
-    height: 1.8rem;
-    padding:4px;
+    width: 1.2rem;
+    height: 1.2rem;
+    padding: 2px;
     color: #FFF;
     margin: 4px;
     display: flex;
     float: left;
     border-radius: 15px;
+    font-size: 0.7rem;
 }
 
 .indicador-casa-visitada {
