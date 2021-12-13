@@ -1,21 +1,60 @@
-.tabuleiro {
-    border-spacing: 0px;
-    border: 3px solid #0F0;
+:root {
+    --tamanho-casa: 4rem;
+    --tamanho-cavalo: 3.8rem;
 }
 
-.casa {
-    width: 70px;
-    height: 70px;
+.tabuleiro {
+    background-color: #CCC;
+    height:100vh;
 }
 
 .escura {
     background-color: #000;
+    width: var(--tamanho-casa);
+    height: var(--tamanho-casa);    
 }
 
-.clara { }
+.clara { 
+    background-color: #FFF;
+    width: var(--tamanho-casa);
+    height: var(--tamanho-casa);  
+}
 
 .cavalo {
-    padding:5px;
-    width:50px;
-    height:50px;
+    padding: 5px;
+    height: var(--tamanho-cavalo);
+    width: var(--tamanho-cavalo);
+}
+
+.painel-acoes {
+    height:100vh;
+}
+
+.indicador-casa {
+    text-transform: uppercase;
+    width: 1.2rem;
+    height: 1.2rem;
+    padding: 2px;
+    color: #FFF;
+    margin: 4px;
+    display: flex;
+    float: left;
+    border-radius: 15px;
+    font-size: 0.7rem;
+}
+
+.indicador-casa-visitada {
+    background-color:#00B100;
+}
+
+.indicador-casa-atual {
+    background-color:#F200FF;
+}
+
+.item-clicavel {
+    cursor: pointer;
+}
+
+.casas-percorridas-card {
+    height:25vh;
 }

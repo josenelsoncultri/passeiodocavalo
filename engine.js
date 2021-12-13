@@ -1,13 +1,16 @@
-var casaCavalo = "a1";
+var casaCavalo = "";
+var casaInicial = "a1";
 var cavaloHtml = '<img src="cavalo.png" class="cavalo" />';
 var casaJaPercorridaHtml = '<img src="casa_ja_percorrida.png" class="cavalo" />';
+var casaJaPercorridaBadgeHtml = '<span class="indicador-casa indicador-casa-visitada">{0}</span>';
+var casaAtualBadgeHtml = '<span class="indicador-casa indicador-casa-atual">{0}</span>';
 var mapeamentoLetraCasa = { "a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6, "g": 7, "h": 8 };
 var casasJaPercorridas = [];
 
 document.addEventListener("DOMContentLoaded", function(){
-    document.querySelector("#a1").innerHTML = cavaloHtml;
+    iniciarPasseio();
 
-    document.querySelectorAll(".casa").forEach(function(e) {
+    document.querySelectorAll(".clara, .escura").forEach(function(e) {
         e.addEventListener("click", function(){
             if (casaCavalo != "") {
                 moverCavalo(casaCavalo, e.getAttribute("id"));
@@ -31,7 +34,9 @@ function moverCavalo(casaAtual, novaCasa) {
         casaCavalo = novaCasa;
 
         casasJaPercorridas.push(casaAtual);
-        preencherCasasPercorridas();
+        preencherCasasPercorridas(novaCasa);
+
+        document.querySelector("#qtde-casas-percorridas").innerHTML = (casasJaPercorridas.length + 1).toString();
     }
 }
 
@@ -62,9 +67,40 @@ function podeMover(casaAtual, novaCasa) {
     return false;
 }
 
-function preencherCasasPercorridas() {
+function preencherCasasPercorridas(novaCasa) {
+    document.querySelector("#casas-percorridas").innerHTML = "";
+
     casasJaPercorridas.forEach(function(e) {
         document.querySelector("#" + e).innerHTML = "";
         document.querySelector("#" + e).innerHTML = casaJaPercorridaHtml;
+
+        document.querySelector("#casas-percorridas").innerHTML += casaJaPercorridaBadgeHtml.replace("{0}", e);
     });
+
+    document.querySelector("#casas-percorridas").innerHTML += casaAtualBadgeHtml.replace("{0}", novaCasa);
+}
+
+function reiniciarPasseio() {
+    casasJaPercorridas = [];
+    
+    document.querySelectorAll(".clara, .escura").forEach(function(e) {
+        e.innerHTML = "";
+    });
+
+    document.querySelector("#casas-percorridas").innerHTML = "";
+
+    iniciarPasseio();
+}
+
+function iniciarPasseio() {
+    casaCavalo = casaInicial;
+    document.querySelector("#" + casaInicial).innerHTML = cavaloHtml;
+    document.querySelector("#casa-inicial-atual").innerHTML = casaInicial;
+    document.querySelector("#qtde-casas-percorridas").innerHTML = (casasJaPercorridas.length + 1).toString();
+    document.querySelector("#casas-percorridas").innerHTML = casaAtualBadgeHtml.replace("{0}", casaInicial);
+}
+
+function redefinirCasaInicial() {
+    casaInicial = prompt("Digite a nova casa inicial: ");
+    reiniciarPasseio();
 }
